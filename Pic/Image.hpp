@@ -108,7 +108,7 @@ namespace pic
 
         typedef typename Channels::ValueType ValueType;
 
-        typedef Pixel<Channels> Pixel;
+        typedef PixelT<Channels> Pixel;
 
         typedef stick::DynamicArray<char> DataArray;
 
@@ -117,8 +117,8 @@ namespace pic
         typedef const PixelIteratorT<ImageT> PixelConstIter;
 
         //TODO: make type id work with constexprs
-        static const stick::TypeID channelLayoutTID = ChannelLayout::TypeInfo::typeID();
-        static const stick::TypeID pixeTID = Pixel::TypeInfo::typeID();
+        static constexpr stick::TypeID channelLayoutTID = ChannelLayout::TypeInfo::typeID();
+        static constexpr stick::TypeID pixeTID = Pixel::TypeInfo::typeID();
 
 
         ImageT(stick::Allocator & _alloc = stick::defaultAllocator());

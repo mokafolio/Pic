@@ -8,7 +8,7 @@
 namespace pic
 {
     template<class C>
-    class STICK_API Pixel : public C
+    class STICK_API PixelT : public C
     {
     public:
 
@@ -18,40 +18,40 @@ namespace pic
 
         typedef typename Channels::ChannelLayout ChannelLayout;
 
-        typedef stick::TypeInfoT<Pixel> TypeInfo;
+        typedef stick::TypeInfoT<PixelT> TypeInfo;
 
 
-        Pixel()
+        PixelT()
         {
 
         }
 
-        explicit Pixel(ValueType * _ptr)
+        explicit PixelT(ValueType * _ptr)
         {
             setValue(_ptr);
         }
 
-        explicit Pixel(ValueType _val)
+        explicit PixelT(ValueType _val)
         {
             setValue(_val);
         }
 
-        Pixel(ValueType _a, ValueType _b)
+        PixelT(ValueType _a, ValueType _b)
         {
             setValue(_a, _b);
         }
 
-        Pixel(ValueType _a, ValueType _b, ValueType _c)
+        PixelT(ValueType _a, ValueType _b, ValueType _c)
         {
             setValue(_a, _b, _c);
         }
 
-        Pixel(ValueType _a, ValueType _b, ValueType _c, ValueType _d)
+        PixelT(ValueType _a, ValueType _b, ValueType _c, ValueType _d)
         {
             setValue(_a, _b, _c, _d);
         }
 
-        bool operator == (const Pixel & _other)
+        bool operator == (const PixelT & _other)
         {
             for (stick::UInt32 i = 0; i < ChannelLayout::channelCount(); ++i)
             {
@@ -62,7 +62,7 @@ namespace pic
             return true;
         }
 
-        bool operator != (const Pixel & _other)
+        bool operator != (const PixelT & _other)
         {
             return !(*this == _other);
         }
@@ -157,45 +157,45 @@ namespace pic
         }
     };
 
-    typedef Pixel<ChannelsGray8> PixelGray8;
-    typedef Pixel<ChannelsGrayAlpha8> PixelGrayAlpha8;
-    typedef Pixel<ChannelsAlphaGray8> PixelAlphaGray8;
-    typedef Pixel<ChannelsRGB8> PixelRGB8;
-    typedef Pixel<ChannelsBGR8> PixelBGR8;
-    typedef Pixel<ChannelsRGBA8> PixelRGBA8;
-    typedef Pixel<ChannelsBGRA8> PixelBGRA8;
-    typedef Pixel<ChannelsARGB8> PixelARGB8;
-    typedef Pixel<ChannelsABGR8> PixelABGR8;
+    typedef PixelT<ChannelsGray8> PixelGray8;
+    typedef PixelT<ChannelsGrayAlpha8> PixelGrayAlpha8;
+    typedef PixelT<ChannelsAlphaGray8> PixelAlphaGray8;
+    typedef PixelT<ChannelsRGB8> PixelRGB8;
+    typedef PixelT<ChannelsBGR8> PixelBGR8;
+    typedef PixelT<ChannelsRGBA8> PixelRGBA8;
+    typedef PixelT<ChannelsBGRA8> PixelBGRA8;
+    typedef PixelT<ChannelsARGB8> PixelARGB8;
+    typedef PixelT<ChannelsABGR8> PixelABGR8;
 
-    typedef Pixel<ChannelsGray16> PixelGray16;
-    typedef Pixel<ChannelsGrayAlpha16> PixelGrayAlpha16;
-    typedef Pixel<ChannelsAlphaGray16>PixelAlphaGray16;
-    typedef Pixel<ChannelsRGB16> PixelRGB16;
-    typedef Pixel<ChannelsBGR16>  PixelBGR16;
-    typedef Pixel<ChannelsRGBA16> PixelRGBA16;
-    typedef Pixel<ChannelsBGRA16> PixelBGRA16;
-    typedef Pixel<ChannelsARGB16> PixelARGB16;
-    typedef Pixel<ChannelsABGR16> PixelABGR16;
+    typedef PixelT<ChannelsGray16> PixelGray16;
+    typedef PixelT<ChannelsGrayAlpha16> PixelGrayAlpha16;
+    typedef PixelT<ChannelsAlphaGray16>PixelAlphaGray16;
+    typedef PixelT<ChannelsRGB16> PixelRGB16;
+    typedef PixelT<ChannelsBGR16>  PixelBGR16;
+    typedef PixelT<ChannelsRGBA16> PixelRGBA16;
+    typedef PixelT<ChannelsBGRA16> PixelBGRA16;
+    typedef PixelT<ChannelsARGB16> PixelARGB16;
+    typedef PixelT<ChannelsABGR16> PixelABGR16;
 
-    typedef Pixel<ChannelsGray32> PixelGray32;
-    typedef Pixel<ChannelsGrayAlpha32> PixelGrayAlpha32;
-    typedef Pixel<ChannelsAlphaGray32>PixelAlphaGray32;
-    typedef Pixel<ChannelsRGB32> PixelRGB32;
-    typedef Pixel<ChannelsBGR32>  PixelBGR32;
-    typedef Pixel<ChannelsRGBA32> PixelRGBA32;
-    typedef Pixel<ChannelsBGRA32> PixelBGRA32;
-    typedef Pixel<ChannelsARGB32> PixelARGB32;
-    typedef Pixel<ChannelsABGR32> PixelABGR32;
+    typedef PixelT<ChannelsGray32> PixelGray32;
+    typedef PixelT<ChannelsGrayAlpha32> PixelGrayAlpha32;
+    typedef PixelT<ChannelsAlphaGray32>PixelAlphaGray32;
+    typedef PixelT<ChannelsRGB32> PixelRGB32;
+    typedef PixelT<ChannelsBGR32>  PixelBGR32;
+    typedef PixelT<ChannelsRGBA32> PixelRGBA32;
+    typedef PixelT<ChannelsBGRA32> PixelBGRA32;
+    typedef PixelT<ChannelsARGB32> PixelARGB32;
+    typedef PixelT<ChannelsABGR32> PixelABGR32;
 
-    typedef Pixel<ChannelsGray32f> PixelGray32f;
-    typedef Pixel<ChannelsGrayAlpha32f> PixelGrayAlpha32f;
-    typedef Pixel<ChannelsAlphaGray32f>PixelAlphaGray32f;
-    typedef Pixel<ChannelsRGB32f> PixelRGB32f;
-    typedef Pixel<ChannelsBGR32f>  PixelBGR32f;
-    typedef Pixel<ChannelsRGBA32f> PixelRGBA32f;
-    typedef Pixel<ChannelsBGRA32f> PixelBGRA32f;
-    typedef Pixel<ChannelsARGB32f> PixelARGB32f;
-    typedef Pixel<ChannelsABGR32f> PixelABGR32f;
+    typedef PixelT<ChannelsGray32f> PixelGray32f;
+    typedef PixelT<ChannelsGrayAlpha32f> PixelGrayAlpha32f;
+    typedef PixelT<ChannelsAlphaGray32f>PixelAlphaGray32f;
+    typedef PixelT<ChannelsRGB32f> PixelRGB32f;
+    typedef PixelT<ChannelsBGR32f>  PixelBGR32f;
+    typedef PixelT<ChannelsRGBA32f> PixelRGBA32f;
+    typedef PixelT<ChannelsBGRA32f> PixelBGRA32f;
+    typedef PixelT<ChannelsARGB32f> PixelARGB32f;
+    typedef PixelT<ChannelsABGR32f> PixelABGR32f;
 }
 
 #endif //PIC_PIXEL_HPP
