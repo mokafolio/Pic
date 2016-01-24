@@ -362,11 +362,11 @@ const Suite spec[] =
         EXPECT(!a);
         auto res = loadImage("../../Tests/TestFiles/test01.png");
         EXPECT(res);
-        EXPECT(res.image->width() == 2);
-        EXPECT(res.image->height() == 2);
-        EXPECT(res.image->channelLayoutTypeID() == ImageBGRA8::channelLayoutTID);
+        EXPECT(res.image()->width() == 2);
+        EXPECT(res.image()->height() == 2);
+        EXPECT(res.image()->channelLayoutTypeID() == ImageBGRA8::channelLayoutTID);
 
-        ImageBGRA8 & img = static_cast<ImageBGRA8 &>(*res.image);
+        ImageBGRA8 & img = static_cast<ImageBGRA8 &>(*res.image());
         //TODO: Add some tolerance to this comparison? Depending on the underlying implementation
         //we should propably allow for some variation due to rounding errors etc. NOT SURE
         EXPECT(img.pixel(0, 0) == PixelBGRA8(0, 0, 0, 255));
@@ -384,12 +384,12 @@ const Suite spec[] =
         EXPECT(!err);
         auto res = loadImage(path);
         EXPECT(res);
-        EXPECT(res.image->width() == 2);
-        EXPECT(res.image->height() == 2);
-        EXPECT(res.image->depth() == 1);
-        EXPECT(res.image->channelLayoutTypeID() == ImageGray8::channelLayoutTID);
+        EXPECT(res.image()->width() == 2);
+        EXPECT(res.image()->height() == 2);
+        EXPECT(res.image()->depth() == 1);
+        EXPECT(res.image()->channelLayoutTypeID() == ImageGray8::channelLayoutTID);
 
-        ImageGray8 & img = static_cast<ImageGray8 &>(*res.image);
+        ImageGray8 & img = static_cast<ImageGray8 &>(*res.image());
         EXPECT(img.pixel(0, 0).v == 255);
         EXPECT(img.pixel(1, 0).v == 128);
         EXPECT(img.pixel(0, 1).v == 64);
@@ -403,12 +403,12 @@ const Suite spec[] =
         EXPECT(!err);
         res = loadImage(path2);
         EXPECT(res);
-        EXPECT(res.image->width() == 2);
-        EXPECT(res.image->height() == 2);
-        EXPECT(res.image->depth() == 1);
-        EXPECT(res.image->channelLayoutTypeID() == ImageBGR8::channelLayoutTID);
+        EXPECT(res.image()->width() == 2);
+        EXPECT(res.image()->height() == 2);
+        EXPECT(res.image()->depth() == 1);
+        EXPECT(res.image()->channelLayoutTypeID() == ImageBGR8::channelLayoutTID);
 
-        ImageBGR8 & img2 = static_cast<ImageBGR8 &>(*res.image);
+        ImageBGR8 & img2 = static_cast<ImageBGR8 &>(*res.image());
         //since we are in compressed land, we compare with tolerance
         EXPECT(abs(10 - img2.pixel(0, 0).b) <= 5);
         EXPECT(abs(20 - img2.pixel(0, 0).g) <= 5);

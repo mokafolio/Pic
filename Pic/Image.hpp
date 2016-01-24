@@ -276,21 +276,21 @@ namespace pic
     }
     template<class C>
     ImageT<C>::ImageT(stick::Size _width, const ValueType * _pixels, stick::Size _rowPadding, stick::Allocator & _alloc) :
-    m_data(_alloc)
+        m_data(_alloc)
     {
         loadPixels(_width, 1, 1, _pixels, _rowPadding);
     }
 
     template<class C>
     ImageT<C>::ImageT(stick::Size _width, stick::Size _height, const ValueType * _pixels, stick::Size _rowPadding, stick::Allocator & _alloc) :
-    m_data(_alloc)
+        m_data(_alloc)
     {
         loadPixels(_width, _height, 1, _pixels, _rowPadding);
     }
 
     template<class C>
     ImageT<C>::ImageT(stick::Size _width, stick::Size _height, stick::Size _depth, const ValueType * _pixels, stick::Size _rowPadding, stick::Allocator & _alloc) :
-    m_data(_alloc)
+        m_data(_alloc)
     {
         loadPixels(_width, _height, _depth, _pixels, _rowPadding);
     }
@@ -728,6 +728,7 @@ namespace pic
     typedef ImageT<ChannelsBGRA32f> ImageBGRA32f;
     typedef ImageT<ChannelsARGB32f> ImageARGB32f;
     typedef ImageT<ChannelsABGR32f> ImageABGR32f;
+
 }
 
 #endif //PIC_IMAGE_HPP
