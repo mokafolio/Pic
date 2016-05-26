@@ -19,9 +19,12 @@ Pic/FreeImage/FIImageImpl.cpp
 
 add_library (Pic SHARED ${PICSRC})
 add_library (PicStatic STATIC ${PICSRC})
-target_link_libraries(Pic Stick ${PICDEPS})
-target_link_libraries(PicStatic Stick ${PICDEPS})
-install (TARGETS Pic DESTINATION /usr/local/lib)
-install (FILES ${PICINC} DESTINATION /usr/local/include/Pic)
+target_link_libraries(Pic ${PICDEPS})
+target_link_libraries(PicStatic ${PICDEPS})
+install (TARGETS Pic PicStatic DESTINATION /usr/local/lib)
+foreach ( file ${PICINC} )
+    get_filename_component( dir ${file} DIRECTORY )
+    install( FILES ${file} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${dir} )
+endforeach()
 
 add_subdirectory (Tests)

@@ -366,7 +366,7 @@ const Suite spec[] =
         EXPECT(res.image()->height() == 2);
         EXPECT(res.image()->channelLayoutTypeID() == ImageBGRA8::channelLayoutTID);
 
-        ImageBGRA8 & img = static_cast<ImageBGRA8 &>(*res.image());
+        const ImageBGRA8 & img = static_cast<const ImageBGRA8 &>(*res.image());
         //TODO: Add some tolerance to this comparison? Depending on the underlying implementation
         //we should propably allow for some variation due to rounding errors etc. NOT SURE
         EXPECT(img.pixel(0, 0) == PixelBGRA8(0, 0, 0, 255));

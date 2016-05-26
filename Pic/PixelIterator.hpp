@@ -7,7 +7,7 @@
 
 namespace pic
 {
-    template<class T>
+    template<class T, class U>
     class PixelIteratorT
     {
     public:
@@ -17,6 +17,8 @@ namespace pic
         typedef typename Image::Pixel Pixel;
 
         typedef typename Image::ValueType ValueType;
+
+        typedef U ByteIteratorType;
 
 
         inline PixelIteratorT() :
@@ -28,7 +30,7 @@ namespace pic
 
         inline PixelIteratorT(Image & _image) :
             m_image(&_image),
-            m_pos(reinterpret_cast<char *>(_image.ptr())),
+            m_pos(reinterpret_cast<ByteIteratorType>(_image.ptr())),
             m_currentX(0)
         {
 
@@ -36,7 +38,7 @@ namespace pic
 
         inline PixelIteratorT(Image & _image, stick::Size _pixelOff) :
             m_image(&_image),
-            m_pos(reinterpret_cast<char *>(_image.ptr())),
+            m_pos(reinterpret_cast<ByteIteratorType>(_image.ptr())),
             m_currentX(0)
         {
             increment(_pixelOff);
@@ -180,7 +182,7 @@ namespace pic
 
         Image * m_image;
 
-        char * m_pos;
+        ByteIteratorType m_pos;
 
         stick::Size m_currentX;
     };

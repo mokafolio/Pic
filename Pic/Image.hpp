@@ -112,9 +112,9 @@ namespace pic
 
         typedef stick::DynamicArray<char> DataArray;
 
-        typedef PixelIteratorT<ImageT> PixelIter;
+        typedef PixelIteratorT<ImageT, char*> PixelIter;
 
-        typedef const PixelIteratorT<ImageT> PixelConstIter;
+        typedef PixelIteratorT<const ImageT, const char*> PixelConstIter;
 
         //TODO: make type id work with constexprs
         static constexpr stick::TypeID channelLayoutTID = ChannelLayout::TypeInfo::typeID();

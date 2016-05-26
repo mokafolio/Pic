@@ -51,7 +51,7 @@ namespace pic
             setValue(_a, _b, _c, _d);
         }
 
-        bool operator == (const PixelT & _other)
+        bool operator == (const PixelT & _other) const
         {
             for (stick::UInt32 i = 0; i < ChannelLayout::channelCount(); ++i)
             {
@@ -62,7 +62,7 @@ namespace pic
             return true;
         }
 
-        bool operator != (const PixelT & _other)
+        bool operator != (const PixelT & _other) const
         {
             return !(*this == _other);
         }

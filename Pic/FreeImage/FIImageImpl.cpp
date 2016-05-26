@@ -29,8 +29,8 @@ namespace pic
 
                 if (imageType  ==  FIT_RGBF)
                 {
-                    ret = ResultType(ImageUniquePtr(_alloc.create<ImageRGB32f>(width, height, (float *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
-                                                    ImageUniquePtr::Cleanup(_alloc)));
+                    ret = move(ResultType(move(ImageUniquePtr(_alloc.create<ImageRGB32f>(width, height, (float *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
+                                                    ImageUniquePtr::Cleanup(_alloc)))));
                 }
                 else if (imageType  ==  FIT_RGBAF)
                 {
