@@ -21,6 +21,7 @@ namespace pic
 
         //the base class it not copyable to prevent splicing
         Image(const Image & _other) = delete;
+
         Image & operator = (const Image & _other) = delete;
 
         virtual Image * clone(stick::Allocator & _alloc = stick::defaultAllocator()) const = 0;
@@ -86,15 +87,13 @@ namespace pic
         Image() {}
     };
 
-    STICK_RESULT_HOLDER(ImageResultHolder, image);
-
     typedef stick::UniquePtr<Image> ImageUniquePtr;
 
-    STICK_API stick::Result<ImageUniquePtr, ImageResultHolder> decodeImage(const stick::ByteArray & _data, stick::Allocator & _alloc = stick::defaultAllocator());
+    STICK_API stick::Result<ImageUniquePtr> decodeImage(const stick::ByteArray & _data, stick::Allocator & _alloc = stick::defaultAllocator());
 
-    STICK_API stick::Result<ImageUniquePtr, ImageResultHolder> decodeImage(const void * _data, stick::Size _byteCount, stick::Allocator & _alloc = stick::defaultAllocator());
+    STICK_API stick::Result<ImageUniquePtr> decodeImage(const void * _data, stick::Size _byteCount, stick::Allocator & _alloc = stick::defaultAllocator());
 
-    STICK_API stick::Result<ImageUniquePtr, ImageResultHolder> loadImage(const stick::URI & _path, stick::Allocator & _alloc = stick::defaultAllocator());
+    STICK_API stick::Result<ImageUniquePtr> loadImage(const stick::URI & _path, stick::Allocator & _alloc = stick::defaultAllocator());
 
 
     template<class C>
@@ -308,11 +307,11 @@ namespace pic
 
     template<class C>
     ImageT<C>::ImageT(ImageT && _other) :
-        m_data(stick::move(_other.m_data)),
-        m_width(stick::move(_other.m_width)),
-        m_height(stick::move(_other.m_height)),
-        m_depth(stick::move(_other.m_depth)),
-        m_rowPadding(stick::move(_other.m_rowPadding))
+        m_data(std::move(_other.m_data)),
+        m_width(std::move(_other.m_width)),
+        m_height(std::move(_other.m_height)),
+        m_depth(std::move(_other.m_depth)),
+        m_rowPadding(std::move(_other.m_rowPadding))
     {
 
     }
@@ -338,7 +337,7 @@ namespace pic
     template<class C>
     ImageT<C> & ImageT<C>::operator = (ImageT && _other)
     {
-        m_data = stick::move(_other.m_data);
+        m_data = std::move(_other.m_data);
         m_width = _other.m_width;
         m_height = _other.m_height;
         m_depth = _other.m_depth;

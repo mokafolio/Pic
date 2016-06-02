@@ -10,9 +10,9 @@ namespace pic
 {
     namespace detail
     {
-        STICK_LOCAL stick::Result<ImageUniquePtr, ImageResultHolder> decodeImageImpl(const void * _data, stick::Size _byteCount, stick::Allocator & _alloc);
+        STICK_LOCAL stick::Result<ImageUniquePtr> decodeImageImpl(const void * _data, stick::Size _byteCount, stick::Allocator & _alloc);
 
-        STICK_LOCAL stick::Result<ImageUniquePtr, ImageResultHolder> loadImageImpl(const stick::URI & _path, stick::Allocator & _alloc);
+        STICK_LOCAL stick::Result<ImageUniquePtr> loadImageImpl(const stick::URI & _path, stick::Allocator & _alloc);
 
         STICK_LOCAL stick::Error saveImageImpl(const Image & _img, const stick::URI & _path);
     }

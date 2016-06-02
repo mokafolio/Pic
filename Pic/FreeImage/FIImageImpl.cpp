@@ -8,10 +8,9 @@ namespace pic
     {
         using namespace stick;
 
-        Result<ImageUniquePtr, ImageResultHolder> decodeImageImpl(const void * _data, Size _byteCount, Allocator & _alloc)
+        Result<ImageUniquePtr> decodeImageImpl(const void * _data, Size _byteCount, Allocator & _alloc)
         {
-            typedef Result<ImageUniquePtr, ImageResultHolder> ResultType;
-            Result<ImageUniquePtr, ImageResultHolder> ret;
+            typedef Result<ImageUniquePtr> ResultType;
             FIMEMORY * memStream = FreeImage_OpenMemory ((unsigned char *)_data, _byteCount);
             FREE_IMAGE_FORMAT fileType = FreeImage_GetFileTypeFromMemory (memStream, _byteCount);
 
@@ -29,12 +28,12 @@ namespace pic
 
                 if (imageType  ==  FIT_RGBF)
                 {
-                    ret = move(ResultType(move(ImageUniquePtr(_alloc.create<ImageRGB32f>(width, height, (float *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
-                                                    ImageUniquePtr::Cleanup(_alloc)))));
+                    return ResultType(ImageUniquePtr(_alloc.create<ImageRGB32f>(width, height, (float *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
+                                                    ImageUniquePtr::Cleanup(_alloc)));
                 }
                 else if (imageType  ==  FIT_RGBAF)
                 {
-                    ret = ResultType(ImageUniquePtr(_alloc.create<ImageRGBA32f>(width, height, (float *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
+                    return ResultType(ImageUniquePtr(_alloc.create<ImageRGBA32f>(width, height, (float *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
                                                     ImageUniquePtr::Cleanup(_alloc)));
                 }
                 else
@@ -44,17 +43,17 @@ namespace pic
                     {
                         if (bpp  ==  8)
                         {
-                            ret = ResultType(ImageUniquePtr(_alloc.create<ImageGray8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageGray8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
                                                             ImageUniquePtr::Cleanup(_alloc)));
                         }
                         else if (bpp  ==  16)
                         {
-                            ret = ResultType(ImageUniquePtr(_alloc.create<ImageGray16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageGray16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
                                                             ImageUniquePtr::Cleanup(_alloc)));
                         }
                         else
                         {
-                            ret.setError(Error(ec::Unsupported, "Grayscale images are only supported in 8 or 16 bits per pixel.", STICK_FILE, STICK_LINE));
+                            return Error(ec::Unsupported, "Grayscale images are only supported in 8 or 16 bits per pixel.", STICK_FILE, STICK_LINE);
                         }
                     }
                     else if (colorType  ==  FIC_RGB)
@@ -62,25 +61,25 @@ namespace pic
                         //free image uses BGR, so we do too for speed
                         if (bpp  ==  24)
                         {
-                            ret = ResultType(ImageUniquePtr(_alloc.create<ImageBGR8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageBGR8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
                                                             ImageUniquePtr::Cleanup(_alloc)));
                         }
                         //this is a FreeImage oddity that happens if we call FreeImage_ConvertTo32Bits
                         //as it won't change the color type to FIC_RGBALPHA (this a bug? who knows daawg)
                         else if (bpp  ==  32)
                         {
-                            ret = ResultType(ImageUniquePtr(_alloc.create<ImageBGRA8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageBGRA8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
                                                             ImageUniquePtr::Cleanup(_alloc)));
                         }
                         else if (bpp  ==  48)
                         {
                             //48 bit on the other hand are natively stored as rgb in freeimage....
-                            ret = ResultType(ImageUniquePtr(_alloc.create<ImageRGB16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageRGB16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
                                                             ImageUniquePtr::Cleanup(_alloc)));
                         }
                         else
                         {
-                            ret.setError(Error(ec::Unsupported, "RGB images are only supported in 24 or 48 bits per pixel.", STICK_FILE, STICK_LINE));
+                            return Error(ec::Unsupported, "RGB images are only supported in 24 or 48 bits per pixel.", STICK_FILE, STICK_LINE);
                         }
                     }
                     else if (colorType  ==  FIC_RGBALPHA)
@@ -88,37 +87,36 @@ namespace pic
                         //free image uses BGR, so we do too for speed
                         if (bpp  ==  32)
                         {
-                            ret = ResultType(ImageUniquePtr(_alloc.create<ImageBGRA8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageBGRA8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
                                                             ImageUniquePtr::Cleanup(_alloc)));
                         }
                         else if (bpp  ==  64)
                         {
                             //64 bit on the other hand are natively stored as rgb in freeimage....
-                            ret = ResultType(ImageUniquePtr(_alloc.create<ImageRGBA16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageRGBA16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc),
                                                             ImageUniquePtr::Cleanup(_alloc)));
                         }
                         else
                         {
-                            ret.setError(Error(ec::Unsupported, "RGBA images are only supported in 32 or 64 bits per pixel.", STICK_FILE, STICK_LINE));
+                            return Error(ec::Unsupported, "RGBA images are only supported in 32 or 64 bits per pixel.", STICK_FILE, STICK_LINE);
                         }
                     }
                     else
                     {
-                        ret.setError(Error(ec::Unsupported, "The image format is not supported.", STICK_FILE, STICK_LINE));
+                        return Error(ec::Unsupported, "The image format is not supported.", STICK_FILE, STICK_LINE);
                     }
                 }
             }
 
             FreeImage_CloseMemory (memStream);
-            return ret;
         }
 
-        Result<ImageUniquePtr, ImageResultHolder> loadImageImpl(const URI & _path, Allocator & _alloc)
+        Result<ImageUniquePtr> loadImageImpl(const URI & _path, Allocator & _alloc)
         {
             auto res = loadBinaryFile(_path, _alloc);
             if (res)
             {
-                return decodeImageImpl(&res.data()[0], res.data().count(), _alloc);
+                return decodeImageImpl(&res.get()[0], res.get().count(), _alloc);
             }
             return res.error();
         }

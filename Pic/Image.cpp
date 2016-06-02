@@ -11,12 +11,12 @@ namespace pic
         return detail::saveImageImpl(*this, _uri);
     }
     
-    Result<ImageUniquePtr, ImageResultHolder> decodeImage(const ByteArray & _data, Allocator & _alloc)
+    Result<ImageUniquePtr> decodeImage(const ByteArray & _data, Allocator & _alloc)
     {
         return detail::decodeImageImpl(&_data[0], _data.count(), _alloc);
     }
 
-    Result<ImageUniquePtr, ImageResultHolder> loadImage(const URI & _path, Allocator & _alloc)
+    Result<ImageUniquePtr> loadImage(const URI & _path, Allocator & _alloc)
     {
         return detail::loadImageImpl(_path, _alloc);
     }
