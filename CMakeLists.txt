@@ -10,6 +10,7 @@ set (PICINC
 Pic/Channels.hpp
 Pic/Image.hpp
 Pic/Pixel.hpp
+Pic/PixelIterator.hpp
 )
 
 set (PICSRC
