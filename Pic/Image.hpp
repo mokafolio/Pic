@@ -117,7 +117,7 @@ namespace pic
 
         //TODO: make type id work with constexprs
         static constexpr stick::TypeID channelLayoutTID = ChannelLayout::TypeInfo::typeID();
-        static constexpr stick::TypeID pixeTID = Pixel::TypeInfo::typeID();
+        static constexpr stick::TypeID pixelTID = Pixel::TypeInfo::typeID();
 
 
         ImageT(stick::Allocator & _alloc = stick::defaultAllocator());
