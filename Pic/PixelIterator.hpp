@@ -181,9 +181,7 @@ namespace pic
     private:
 
         Image * m_image;
-
         ByteIteratorType m_pos;
-
         stick::Size m_currentX;
     };
 }
