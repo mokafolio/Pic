@@ -5,6 +5,9 @@ language: cpp
 compiler: 
     - clang
     #- gcc
+before_install:
+    - sudo apt-get update
+    - sudo apt-get install libfreeimage3 libfreeimage-dev
 before_script:
     - mkdir build
     - cd build
