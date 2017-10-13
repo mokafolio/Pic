@@ -28,11 +28,11 @@ namespace pic
 
                 if (imageType  ==  FIT_RGBF)
                 {
-                    return ResultType(ImageUniquePtr(_alloc.create<ImageRGB32f>(width, height, (float *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc)));
+                    return ResultType(ImageUniquePtr(_alloc.create<ImageRGB32f>(width, height, (float *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc), _alloc));
                 }
                 else if (imageType  ==  FIT_RGBAF)
                 {
-                    return ResultType(ImageUniquePtr(_alloc.create<ImageRGBA32f>(width, height, (float *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc)));
+                    return ResultType(ImageUniquePtr(_alloc.create<ImageRGBA32f>(width, height, (float *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc), _alloc));
                 }
                 else
                 {
@@ -41,11 +41,11 @@ namespace pic
                     {
                         if (bpp  ==  8)
                         {
-                            return ResultType(ImageUniquePtr(_alloc.create<ImageGray8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc)));
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageGray8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc), _alloc));
                         }
                         else if (bpp  ==  16)
                         {
-                            return ResultType(ImageUniquePtr(_alloc.create<ImageGray16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc)));
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageGray16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc), _alloc));
                         }
                         else
                         {
@@ -57,18 +57,18 @@ namespace pic
                         //free image uses BGR, so we do too for speed
                         if (bpp  ==  24)
                         {
-                            return ResultType(ImageUniquePtr(_alloc.create<ImageBGR8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc)));
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageBGR8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc), _alloc));
                         }
                         //this is a FreeImage oddity that happens if we call FreeImage_ConvertTo32Bits
                         //as it won't change the color type to FIC_RGBALPHA (this a bug? who knows daawg)
                         else if (bpp  ==  32)
                         {
-                            return ResultType(ImageUniquePtr(_alloc.create<ImageBGRA8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc)));
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageBGRA8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc), _alloc));
                         }
                         else if (bpp  ==  48)
                         {
                             //48 bit on the other hand are natively stored as rgb in freeimage....
-                            return ResultType(ImageUniquePtr(_alloc.create<ImageRGB16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc)));
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageRGB16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc), _alloc));
                         }
                         else
                         {
@@ -80,26 +80,23 @@ namespace pic
                         //free image uses BGR, so we do too for speed
                         if (bpp  ==  32)
                         {
-                            return ResultType(ImageUniquePtr(_alloc.create<ImageBGRA8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc)));
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageBGRA8>(width, height, (unsigned char *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc), _alloc));
                         }
                         else if (bpp  ==  64)
                         {
                             //64 bit on the other hand are natively stored as rgb in freeimage....
-                            return ResultType(ImageUniquePtr(_alloc.create<ImageRGBA16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc)));
+                            return ResultType(ImageUniquePtr(_alloc.create<ImageRGBA16>(width, height, (unsigned short *)FreeImage_GetBits (img), bytePaddingPerRow, _alloc), _alloc));
                         }
                         else
                         {
                             return Error(ec::Unsupported, "RGBA images are only supported in 32 or 64 bits per pixel.", STICK_FILE, STICK_LINE);
                         }
                     }
-                    else
-                    {
-                        return Error(ec::Unsupported, "The image format is not supported.", STICK_FILE, STICK_LINE);
-                    }
                 }
             }
 
             FreeImage_CloseMemory (memStream);
+            return Error(ec::Unsupported, "The image format is not supported.", STICK_FILE, STICK_LINE);
         }
 
         Result<ImageUniquePtr> loadImageImpl(const URI & _path, Allocator & _alloc)
