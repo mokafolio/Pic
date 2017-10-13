@@ -58,6 +58,10 @@ namespace pic
 
         virtual stick::Size bitsPerPixel() const = 0;
 
+        virtual stick::Size bytesPerPixel() const = 0;
+
+        virtual stick::Size rowPadding() const = 0;
+
         virtual bool hasAlpha() const = 0;
 
         virtual bool isFloatingPoint() const = 0;
@@ -138,11 +142,11 @@ namespace pic
 
         ImageT & operator = (ImageT && _other);
 
-        Image * clone(stick::Allocator & _alloc = stick::defaultAllocator()) const;
+        Image * clone(stick::Allocator & _alloc = stick::defaultAllocator()) const override;
 
-        void resize(stick::Size _width, stick::Size _height);
+        void resize(stick::Size _width, stick::Size _height) override;
 
-        void resize(stick::Size _width, stick::Size _height, stick::Size _depth, stick::Size _rowPadding = 0);
+        void resize(stick::Size _width, stick::Size _height, stick::Size _depth, stick::Size _rowPadding = 0) override;
 
         void clear();
 
@@ -154,29 +158,29 @@ namespace pic
 
         void updatePixels(stick::Size _left, stick::Size _top, stick::Size _layer, stick::Size _width, stick::Size _height, stick::Size _depth, const ValueType * _pixels);
 
-        void loadRawPixels(stick::Size _width, stick::Size _height, stick::Size _depth, const char * _src, stick::Size _rowPadding = 0);
+        void loadRawPixels(stick::Size _width, stick::Size _height, stick::Size _depth, const char * _src, stick::Size _rowPadding = 0) override;
 
-        void updateRawPixels(stick::Size _left, stick::Size _top, stick::Size _layer, stick::Size _width, stick::Size _height, stick::Size _depth, const char * _src);
+        void updateRawPixels(stick::Size _left, stick::Size _top, stick::Size _layer, stick::Size _width, stick::Size _height, stick::Size _depth, const char * _src) override;
 
         void setPixel(stick::Size _left, stick::Size _top, const ValueType * _value);
 
         void setPixel(stick::Size _left, stick::Size _top, stick::Size _layer, const ValueType * _value);
 
-        void setPixelRaw(stick::Size _left, stick::Size _top, const char * _data);
+        void setPixelRaw(stick::Size _left, stick::Size _top, const char * _data) override;
 
-        void setPixelRaw(stick::Size _left, stick::Size _top, stick::Size _layer, const char * _data);
+        void setPixelRaw(stick::Size _left, stick::Size _top, stick::Size _layer, const char * _data) override;
 
 
         //flips all the pixel rows
-        void flipRows();
+        void flipRows() override;
 
-        void flipColumns();
+        void flipColumns() override;
 
-        void flipLayers();
+        void flipLayers() override;
 
-        void flip();
+        void flip() override;
 
-        void swapChannels(stick::UInt32 _a, stick::UInt32 _b);
+        void swapChannels(stick::UInt32 _a, stick::UInt32 _b) override;
 
 
         const Pixel & pixel(stick::Size _left, stick::Size _top) const;
@@ -197,45 +201,45 @@ namespace pic
         PixelConstIter end() const;
 
 
-        stick::Size width() const;
+        stick::Size width() const override;
 
-        stick::Size height() const;
+        stick::Size height() const override;
 
-        stick::Size depth() const;
+        stick::Size depth() const override;
 
-        stick::Size byteCount() const;
+        stick::Size byteCount() const override;
 
-        stick::Size bytesPerRow() const;
+        stick::Size bytesPerRow() const override;
 
-        stick::Size pixelCount() const;
+        stick::Size pixelCount() const override;
 
-        stick::Size rowPadding() const;
+        stick::Size rowPadding() const override;
 
-        stick::UInt32 channelCount() const;
+        stick::UInt32 channelCount() const override;
 
-        stick::Size bitsPerPixel() const;
+        stick::Size bitsPerPixel() const override;
 
-        stick::Size bitsPerChannel() const;
+        stick::Size bitsPerChannel() const override;
 
-        stick::Size bytesPerPixel() const;
+        stick::Size bytesPerPixel() const override;
 
-        stick::TypeID channelLayoutTypeID() const;
+        stick::TypeID channelLayoutTypeID() const override;
 
-        stick::TypeID pixelTypeID() const;
+        stick::TypeID pixelTypeID() const override;
 
-        stick::TypeID valueTypeID() const;
+        stick::TypeID valueTypeID() const override;
 
         const ValueType * ptr() const;
 
         ValueType * ptr();
 
-        bool isFloatingPoint() const;
+        bool isFloatingPoint() const override;
 
-        bool hasAlpha() const;
+        bool hasAlpha() const override;
 
-        stick::Int32 alphaPosition() const;
+        stick::Int32 alphaPosition() const override;
 
-        const char * bytePtr() const;
+        const char * bytePtr() const override;
 
     private:
 
