@@ -100,18 +100,16 @@ namespace pic
     STICK_API stick::Result<ImageUniquePtr> loadImage(const stick::URI & _path, stick::Allocator & _alloc = stick::defaultAllocator());
 
 
-    template<class C>
+    template<class PixelT>
     class STICK_API ImageT : public Image
     {
     public:
 
-        typedef C Channels;
+        typedef typename PixelT::ChannelLayout ChannelLayout;
 
-        typedef typename Channels::ChannelLayout ChannelLayout;
+        typedef typename PixelT::ValueType ValueType;
 
-        typedef typename Channels::ValueType ValueType;
-
-        typedef PixelT<Channels> Pixel;
+        typedef PixelT Pixel;
 
         typedef stick::DynamicArray<char> DataArray;
 
@@ -119,8 +117,8 @@ namespace pic
 
         typedef PixelIteratorT<const ImageT, const char*> PixelConstIter;
 
-        //TODO: make type id work with constexprs
         static constexpr stick::TypeID channelLayoutTID = ChannelLayout::TypeInfo::typeID();
+
         static constexpr stick::TypeID pixelTID = Pixel::TypeInfo::typeID();
 
 
@@ -692,46 +690,45 @@ namespace pic
         return reinterpret_cast<const char *>(ptr());
     }
 
-    typedef ImageT<ChannelsGray8> ImageGray8;
-    typedef ImageT<ChannelsGrayAlpha8> ImageGrayAlpha8;
-    typedef ImageT<ChannelsAlphaGray8> ImageAlphaGray8;
-    typedef ImageT<ChannelsRGB8> ImageRGB8;
-    typedef ImageT<ChannelsBGR8> ImageBGR8;
-    typedef ImageT<ChannelsRGBA8> ImageRGBA8;
-    typedef ImageT<ChannelsBGRA8> ImageBGRA8;
-    typedef ImageT<ChannelsARGB8> ImageARGB8;
-    typedef ImageT<ChannelsABGR8> ImageABGR8;
+    typedef ImageT<PixelGray8> ImageGray8;
+    typedef ImageT<PixelGrayAlpha8> ImageGrayAlpha8;
+    typedef ImageT<PixelAlphaGray8> ImageAlphaGray8;
+    typedef ImageT<PixelRGB8> ImageRGB8;
+    typedef ImageT<PixelBGR8> ImageBGR8;
+    typedef ImageT<PixelRGBA8> ImageRGBA8;
+    typedef ImageT<PixelBGRA8> ImageBGRA8;
+    typedef ImageT<PixelARGB8> ImageARGB8;
+    typedef ImageT<PixelABGR8> ImageABGR8;
 
-    typedef ImageT<ChannelsGray16> ImageGray16;
-    typedef ImageT<ChannelsGrayAlpha16> ImageGrayAlpha16;
-    typedef ImageT<ChannelsAlphaGray16> ImageAlphaGray16;
-    typedef ImageT<ChannelsRGB16> ImageRGB16;
-    typedef ImageT<ChannelsBGR16>  ImageBGR16;
-    typedef ImageT<ChannelsRGBA16> ImageRGBA16;
-    typedef ImageT<ChannelsBGRA16> ImageBGRA16;
-    typedef ImageT<ChannelsARGB16> ImageARGB16;
-    typedef ImageT<ChannelsABGR16> ImageABGR16;
+    typedef ImageT<PixelGray16> ImageGray16;
+    typedef ImageT<PixelGrayAlpha16> ImageGrayAlpha16;
+    typedef ImageT<PixelAlphaGray16> ImageAlphaGray16;
+    typedef ImageT<PixelRGB16> ImageRGB16;
+    typedef ImageT<PixelBGR16>  ImageBGR16;
+    typedef ImageT<PixelRGBA16> ImageRGBA16;
+    typedef ImageT<PixelBGRA16> ImageBGRA16;
+    typedef ImageT<PixelARGB16> ImageARGB16;
+    typedef ImageT<PixelABGR16> ImageABGR16;
 
-    typedef ImageT<ChannelsGray32> ImageGray32;
-    typedef ImageT<ChannelsGrayAlpha32> ImageGrayAlpha32;
-    typedef ImageT<ChannelsAlphaGray32> ImageAlphaGray32;
-    typedef ImageT<ChannelsRGB32> ImageRGB32;
-    typedef ImageT<ChannelsBGR32>  ImageBGR32;
-    typedef ImageT<ChannelsRGBA32> ImageRGBA32;
-    typedef ImageT<ChannelsBGRA32> ImageBGRA32;
-    typedef ImageT<ChannelsARGB32> ImageARGB32;
-    typedef ImageT<ChannelsABGR32> ImageABGR32;
+    typedef ImageT<PixelGray32> ImageGray32;
+    typedef ImageT<PixelGrayAlpha32> ImageGrayAlpha32;
+    typedef ImageT<PixelAlphaGray32> ImageAlphaGray32;
+    typedef ImageT<PixelRGB32> ImageRGB32;
+    typedef ImageT<PixelBGR32>  ImageBGR32;
+    typedef ImageT<PixelRGBA32> ImageRGBA32;
+    typedef ImageT<PixelBGRA32> ImageBGRA32;
+    typedef ImageT<PixelARGB32> ImageARGB32;
+    typedef ImageT<PixelABGR32> ImageABGR32;
 
-    typedef ImageT<ChannelsGray32f> ImageGray32f;
-    typedef ImageT<ChannelsGrayAlpha32f> ImageGrayAlpha32f;
-    typedef ImageT<ChannelsAlphaGray32f> ImageAlphaGray32f;
-    typedef ImageT<ChannelsRGB32f> ImageRGB32f;
-    typedef ImageT<ChannelsBGR32f>  ImageBGR32f;
-    typedef ImageT<ChannelsRGBA32f> ImageRGBA32f;
-    typedef ImageT<ChannelsBGRA32f> ImageBGRA32f;
-    typedef ImageT<ChannelsARGB32f> ImageARGB32f;
-    typedef ImageT<ChannelsABGR32f> ImageABGR32f;
-
+    typedef ImageT<PixelGray32f> ImageGray32f;
+    typedef ImageT<PixelGrayAlpha32f> ImageGrayAlpha32f;
+    typedef ImageT<PixelAlphaGray32f> ImageAlphaGray32f;
+    typedef ImageT<PixelRGB32f> ImageRGB32f;
+    typedef ImageT<PixelBGR32f>  ImageBGR32f;
+    typedef ImageT<PixelRGBA32f> ImageRGBA32f;
+    typedef ImageT<PixelBGRA32f> ImageBGRA32f;
+    typedef ImageT<PixelARGB32f> ImageARGB32f;
+    typedef ImageT<PixelABGR32f> ImageABGR32f;
 }
 
 #endif //PIC_IMAGE_HPP

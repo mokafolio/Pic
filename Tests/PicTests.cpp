@@ -15,6 +15,7 @@ const Suite spec[] =
         EXPECT(a.g == 128);
         EXPECT(a.b == 64);
 
+        a.printShit();
         unsigned char vals[3] = {30, 20, 1};
         a.setValue(vals);
         EXPECT(a.r == 30);
