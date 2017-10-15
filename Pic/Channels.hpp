@@ -160,22 +160,22 @@ namespace pic
         static constexpr stick::UInt32 s_channelCount = 1;
 
 
-        static stick::UInt32 channelCount()
+        static constexpr stick::UInt32 channelCount()
         {
             return s_channelCount;
         }
 
-        static bool hasAlpha()
+        static constexpr bool hasAlpha()
         {
             return alphaPosition() != -1;
         }
 
-        static stick::Int32 alphaPosition()
+        static constexpr stick::Int32 alphaPosition()
         {
             return detail::AlphaPosition<Channel0, detail::NoChannel, detail::NoChannel, detail::NoChannel>::alphaPosition();
         }
 
-        static stick::TypeID channelLayoutTypeID()
+        static constexpr stick::TypeID channelLayoutTypeID()
         {
             return stick::TypeInfoT<ChannelLayout1>::typeID();
         }
@@ -195,22 +195,22 @@ namespace pic
         static constexpr stick::UInt32 s_channelCount = 2;
 
 
-        static stick::UInt32 channelCount()
+        static constexpr stick::UInt32 channelCount()
         {
             return s_channelCount;
         }
 
-        static bool hasAlpha()
+        static constexpr bool hasAlpha()
         {
             return alphaPosition() != -1;
         }
 
-        static stick::Int32 alphaPosition()
+        static constexpr stick::Int32 alphaPosition()
         {
             return detail::AlphaPosition<Channel0, Channel1, detail::NoChannel, detail::NoChannel>::alphaPosition();
         }
 
-        static stick::TypeID channelLayoutTypeID()
+        static constexpr stick::TypeID channelLayoutTypeID()
         {
             return stick::TypeInfoT<ChannelLayout2>::typeID();
         }
@@ -232,22 +232,22 @@ namespace pic
         static constexpr stick::UInt32 s_channelCount = 3;
 
 
-        static stick::UInt32 channelCount()
+        static constexpr stick::UInt32 channelCount()
         {
             return s_channelCount;
         }
 
-        static bool hasAlpha()
+        static constexpr bool hasAlpha()
         {
             return alphaPosition() != -1;
         }
 
-        static stick::Int32 alphaPosition()
+        static constexpr stick::Int32 alphaPosition()
         {
             return detail::AlphaPosition<Channel0, Channel1, Channel2, detail::NoChannel>::alphaPosition();
         }
 
-        static stick::TypeID channelLayoutTypeID()
+        static constexpr stick::TypeID channelLayoutTypeID()
         {
             return stick::TypeInfoT<ChannelLayout3>::typeID();
         }
@@ -271,22 +271,22 @@ namespace pic
         static constexpr stick::UInt32 s_channelCount = 4;
 
 
-        static stick::UInt32 channelCount()
+        static constexpr stick::UInt32 channelCount()
         {
             return s_channelCount;
         }
 
-        static bool hasAlpha()
+        static constexpr bool hasAlpha()
         {
             return alphaPosition() != -1;
         }
 
-        static stick::Int32 alphaPosition()
+        static constexpr stick::Int32 alphaPosition()
         {
             return detail::AlphaPosition<Channel0, Channel1, Channel2, Channel3>::alphaPosition();
         }
 
-        static stick::TypeID channelLayoutTypeID()
+        static constexpr stick::TypeID channelLayoutTypeID()
         {
             return stick::TypeInfoT<ChannelLayout4>::typeID();
         }

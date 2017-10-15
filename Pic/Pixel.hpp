@@ -53,7 +53,7 @@ namespace pic
             return *(ptr() + _channel);
         }
 
-        static stick::UInt32 channelCount()
+        static constexpr stick::UInt32 channelCount()
         {
             return ChannelLayout::channelCount();
         }
