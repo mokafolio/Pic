@@ -35,7 +35,7 @@ else
     picDeps = [stickProj.get_variable('stickDep')]
 endif
 
-picDeps += cc.find_library('freeImage', required: true)
+picDeps += cc.find_library('freeimage', required: true)
 
 if host_machine.system() == 'linux'
     picDeps += cc.find_library('dl', required : true)
