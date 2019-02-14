@@ -4,9 +4,8 @@ if meson.is_subproject() == false
     # disable this bogus warning (should be deprecated in newer clang versions)
     add_global_arguments('-Wno-missing-braces', '-fno-exceptions', language: 'cpp')
 else
-    message('Building Stick as subproject.')
+    message('Building Pic as subproject.')
 endif
-
 
 picInc = [
     'Pic/Channels.hpp',
@@ -36,7 +35,7 @@ else
     picDeps = [stickProj.get_variable('stickDep')]
 endif
 
-picDeps += cc.find_library('freeImage')
+picDeps += cc.find_library('freeImage', required: true)
 
 if host_machine.system() == 'linux'
     picDeps += cc.find_library('dl', required : true)
@@ -47,7 +46,7 @@ incDirs = include_directories('.')
 pic = library('Pic', 
         picSrc,
         dependencies: picDeps, 
-        include_directories : incDirs, 
+        include_directories : incDirs,
         install: true)
 
 picDep = declare_dependency(link_with : pic, 
