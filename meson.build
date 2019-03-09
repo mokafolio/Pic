@@ -15,15 +15,14 @@ picInc = [
 ]
 install_headers(picInc, subdir: 'Pic')
 
-picFreeImageInc = [
-    'Pic/FreeImage/FIImageImpl.hpp',
-]
-install_headers(picFreeImageInc, subdir: 'Pic/FreeImage')
+# picFreeImageInc = [
+#     'Pic/FreeImage/FIImageImpl.hpp',
+# ]
+# install_headers(picFreeImageInc, subdir: 'Pic/FreeImage')
 
 
 picSrc = [
-    'Pic/Image.cpp',
-    'Pic/FreeImage/FIImageImpl.cpp'
+    'Pic/Image.cpp'
 ]
 
 cc = meson.get_compiler('cpp')
@@ -35,13 +34,17 @@ else
     picDeps = [stickProj.get_variable('stickDep')]
 endif
 
-picDeps += cc.find_library('freeimage', required: true)
-
+if get_option('implementation') == 'freeimage'
+    add_project_arguments('-DPIC_IMPLEMENTATION_FREEIMAGE', language: 'cpp')
+    picDeps += cc.find_library('freeimage', required: true)
+elif get_option('implementation') == 'stb'
+    add_project_arguments('-DPIC_IMPLEMENTATION_STB', language: 'cpp')
+endif
 if host_machine.system() == 'linux'
     picDeps += cc.find_library('dl', required : true)
 endif
 
-incDirs = include_directories('.')
+incDirs = include_directories('.', './Pic/Libs')
 
 pic = library('Pic', 
         picSrc,

@@ -15,12 +15,17 @@
 
 namespace pic
 {
+
+//@TODO: for future use to hold jpg quality and similar settings
+struct STICK_API SaveSettings
+{};
+
 class STICK_API Image
 {
   public:
     virtual ~Image() = default;
 
-    // the base class it not copyable to prevent splicing
+    // the base class it not copyable to prevent slicing
     Image(const Image & _other) = delete;
 
     Image & operator=(const Image & _other) = delete;
@@ -40,6 +45,8 @@ class STICK_API Image
                              stick::Size _top,
                              stick::Size _layer,
                              const char * _data) = 0;
+
+    virtual stick::Allocator & allocator() const = 0;
 
     virtual stick::Size width() const = 0;
 
@@ -101,7 +108,7 @@ class STICK_API Image
                                  stick::Size _depth,
                                  const char * _src) = 0;
 
-    stick::Error saveFile(const stick::String & _uri);
+    stick::Error save(const stick::String & _uri, const SaveSettings & _flags = SaveSettings());
 
   protected:
     Image()
@@ -127,19 +134,12 @@ class STICK_API ImageT : public Image
 {
   public:
     typedef typename PixelT::ChannelLayout ChannelLayout;
-
     typedef typename PixelT::ValueType ValueType;
-
     typedef PixelT Pixel;
-
     typedef stick::DynamicArray<char> DataArray;
-
     typedef PixelIteratorT<ImageT, char *> PixelIter;
-
     typedef PixelIteratorT<const ImageT, const char *> PixelConstIter;
-
     static constexpr stick::TypeID channelLayoutTID = ChannelLayout::TypeInfo::typeID();
-
     static constexpr stick::TypeID pixelTID = Pixel::TypeInfo::typeID();
 
     ImageT(stick::Allocator & _alloc = stick::defaultAllocator());
@@ -307,17 +307,15 @@ class STICK_API ImageT : public Image
 
     const char * bytePtr() const override;
 
+    stick::Allocator & allocator() const override;
+
   private:
     void updateArraySize();
 
     DataArray m_data;
-
     stick::Size m_width;
-
     stick::Size m_height;
-
     stick::Size m_depth;
-
     stick::Size m_rowPadding;
 };
 
@@ -812,6 +810,12 @@ template <class C>
 const char * ImageT<C>::bytePtr() const
 {
     return reinterpret_cast<const char *>(ptr());
+}
+
+template <class C>
+stick::Allocator & ImageT<C>::allocator() const
+{
+    return m_data.allocator();
 }
 
 typedef ImageT<PixelGray8> ImageGray8;
