@@ -97,11 +97,6 @@ class STICK_API BasePixelT
     {
         return stick::TypeInfoT<ValueType>::typeID();
     }
-
-    void printShit() const
-    {
-        printf("SHIT\n");
-    }
 };
 
 template <class T, template <class> class C0>
