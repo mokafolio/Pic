@@ -13,7 +13,9 @@ picInc = [
     'Pic/Pixel.hpp',
     'Pic/PixelIterator.hpp'
 ]
-install_headers(picInc, subdir: 'Pic')
+if meson.is_subproject() == false
+    install_headers(picInc, subdir: 'Pic')
+endif
 
 # picFreeImageInc = [
 #     'Pic/FreeImage/FIImageImpl.hpp',
@@ -50,7 +52,7 @@ pic = library('Pic',
         picSrc,
         dependencies: picDeps, 
         include_directories : incDirs,
-        install: true)
+        install: meson.is_subproject() == false)
 
 picDep = declare_dependency(link_with : pic, 
     dependencies: picDeps, 
