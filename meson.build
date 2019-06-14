@@ -13,7 +13,7 @@ picInc = [
     'Pic/Pixel.hpp',
     'Pic/PixelIterator.hpp'
 ]
-if meson.is_subproject() == false
+if meson.is_subproject() == false or get_option('forceInstallHeaders')
     install_headers(picInc, subdir: 'Pic')
 endif
 
