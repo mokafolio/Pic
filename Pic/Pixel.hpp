@@ -87,12 +87,6 @@ class STICK_API BasePixelT
         return ChannelLayout::alphaPosition();
     }
 
-    static constexpr stick::TypeID pixelTypeID()
-    {
-        // return TypeInfo::typeID();
-        return 0;
-    }
-
     static constexpr stick::TypeID valueTypeID()
     {
         return stick::TypeInfoT<ValueType>::typeID();
@@ -123,6 +117,11 @@ class STICK_API Pixel1T : public C0<T>,
     void setValue(ValueType _val)
     {
         this->setChannelValue(0, _val);
+    }
+
+    static constexpr stick::TypeID pixelTypeID()
+    {
+        return stick::TypeInfoT<Pixel1T>::typeID();
     }
 };
 
@@ -165,6 +164,11 @@ class STICK_API Pixel2T
     {
         this->setChannelValue(0, _a);
         this->setChannelValue(1, _b);
+    }
+
+    static constexpr stick::TypeID pixelTypeID()
+    {
+        return stick::TypeInfoT<Pixel2T>::typeID();
     }
 };
 
@@ -228,13 +232,22 @@ class STICK_API Pixel3T : public C0<T>,
         this->setChannelValue(1, _b);
         this->setChannelValue(2, _c);
     }
+
+    static constexpr stick::TypeID pixelTypeID()
+    {
+        return stick::TypeInfoT<Pixel3T>::typeID();
+    }
 };
 
 template <class T,
-          template <class> class C0,
-          template <class> class C1,
-          template <class> class C2,
-          template <class> class C3>
+          template <class>
+          class C0,
+          template <class>
+          class C1,
+          template <class>
+          class C2,
+          template <class>
+          class C3>
 class STICK_API Pixel4T : public C0<T>,
                           public C1<T>,
                           public C2<T>,
@@ -310,6 +323,11 @@ class STICK_API Pixel4T : public C0<T>,
         this->setChannelValue(1, _b);
         this->setChannelValue(2, _c);
         this->setChannelValue(3, _d);
+    }
+
+    static constexpr stick::TypeID pixelTypeID()
+    {
+        return stick::TypeInfoT<Pixel4T>::typeID();
     }
 };
 
